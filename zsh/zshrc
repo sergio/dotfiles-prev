@@ -1,0 +1,64 @@
+# Execute directory names as cd command to that directory
+setopt AUTO_CD
+
+# Make cd push the old diretory onto the directory stack (as if pushd)
+setopt AUTO_PUSHD
+
+# Don't push multiple copies of the same directory onto the directory stack
+setopt PUSHD_IGNORE_DUPS
+
+unsetopt beep
+
+# Enable vi line editing mode
+bindkey -v
+
+zstyle :compinstall filename '/Users/sergio/.zshrc'
+autoload -Uz compinit; compinit
+export PATH=$HOME/bin:/usr/local/bin:$PATH
+source ~/dotfiles/zsh/prompt
+
+# History
+SAVEHIST=10000
+HISTSIZE=10000
+HISTFILE=~/.zsh_history
+setopt APPEND_HISTORY
+setopt INC_APPEND_HISTORY
+setopt EXTENDED_HISTORY
+setopt HIST_FIND_NO_DUPS
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_SPACE
+setopt NO_HIST_BEEP
+setopt SHARE_HISTORY
+setopt RM_STAR_WAIT
+setopt NO_CLOBBER
+
+# Bind forward-delete to Fn+Backspace
+bindkey "^[[3~" delete-char
+
+alias reload=". ~/.zshrc && echo 'ZSH config reloaded from ~/.zshrc'"
+alias ez="vim ~/.zshrc && reload"
+alias ev="vim ~/.vim/vimrc"
+
+# Location alias
+alias D="~/Desktop"
+alias N="~/Downloads"
+
+alias ds='dirs -v'
+
+alias copyuuid="uuidgen | tr -d '\n' | pbcopy; pbpaste"
+alias toupper="tr '[:lower:]' '[:upper:]'"
+alias tolower="tr '[:upper:]' '[:lower:]'"
+alias isodate='date "+%Y-%m-%dT%H:%M:%S"'
+
+source ~/dotfiles/zsh/not-public
+
+# Go development
+export GOPATH="${HOME}/.go"
+export GOROOT="$(brew --prefix golang)/libexec"
+export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin"
+test -d "${GOPATH}" || mkdir "${GOPATH}"
+test -d "${GOPATH}/src/github.com" || mkdir -p "${GOPATH}/src/github.com"
+
+# autojump
+[ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
+

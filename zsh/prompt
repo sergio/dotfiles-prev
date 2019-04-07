@@ -1,0 +1,13 @@
+setopt PROMPT_BANG
+
+autoload -U colors && colors
+precmd() {
+	print ""
+    print -rP "%{$fg[cyan]%}%~%{$reset_color%} %{$fg[yellow]%}$(vcprompt -f %n:%r/%b%u%m)%{$reset_color%}" 
+
+    print -Pn "\e]2;%~\a" # print current directory name in Terminal.app tab    
+}
+
+PROMPT="⌘ "
+
+

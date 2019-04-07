@@ -1,0 +1,4 @@
+.DS_Store
+
+# any folder called 'not-public' will be ignored
+not-public
